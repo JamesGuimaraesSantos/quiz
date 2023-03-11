@@ -1,19 +1,41 @@
 :root{
-    --bgGreen: rgb(158, 255, 1);
-    --bgOrage: rgb(247, 181, 0);
-    --bgBlue: rgb(1, 255, 255);
+    --fontGreen: rgb(111, 184, 2);
+    --btnGreen: rgb(158, 255, 1);
+    --btnOrange: rgb(247, 181, 0);
+    --btnBlue: rgb(1, 255, 255);
 }
+
+@font-face {
+    font-family: "positive sistem";
+    src: url(Positive-System.woff);
+}
+
 *{
     margin: 0;
     padding: 0px;
     margin: 0px;
 }
+
 body{
-    color: white
+    color: white;
+    background-color: black;
+}
+/*--------------- Tipografia  ---------------*/
+h1{ /*Título principal*/
+    color: var(--fontGreen);
+    font-family: "positive sistem";
+}
+
+label{
+    font-size: 1.25rem;
+}
+p{
+    font-size: 1.15rem;
 }
 .borda{
     border: 1px solid red;
 }
+
 #tela-principal{
     background-color: rgb(0, 73, 33);
     border-top: 8px solid rgb(58, 26, 2);
@@ -21,57 +43,23 @@ body{
     border-right: 8px solid rgb(110, 50, 3);
     border-bottom: 8px solid rgb(110, 50, 3);
 }
-.form-check{
-    font-size: 1.20rem;
-}
-.input-borda{
-    border: 2px solid white;
-}
-.input-radio-cor{
-    background-color: var(--bgOrage)
-}
-input.btn{
-    color: black;
-    background-color: rgb(253, 152, 0);
-}
+/*--------------- Inputs  ---------------*/
 input.btn:hover{
     border: 2px solid white;
     color: white;
-}
-#botao-proxima-pergunta{
-    background-color: var(--bgGreen)
-}
-#botao-proxima-pergunta:hover{
     background-color: transparent;
 }
 
-#botao-home{
-    background-color: rgb(247, 181, 0);
-}
-#botao-home:hover{
-    background-color: transparent;
+.btn-green{
+    background-color: var(--btnGreen);
 }
 
-#botao-verifica-resposta{
-    background-color: rgb(1, 255, 255);
-}
-#botao-verifica-resposta:hover{
-    background-color: transparent;
+.btn-orange{
+    background-color: var(--btnOrange);
 }
 
-#botao-ready{
-    background-color: rgb(247, 181, 0);
+.btn-blue{
+    background-color: var(--btnBlue);
 }
-#botao-ready:hover{
-    background-color: transparent;
-}
-#cronometro{
-    font-size: 2rem;
-    color: var(--bgGreen)
-}
-.green{
-    color: yellow;
-}
-.red{
-    color: red;
-}
+
+

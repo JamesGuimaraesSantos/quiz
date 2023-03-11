@@ -1,13 +1,13 @@
- 
+
 const perguntas = [
-    'Quem pintou o quadro Mona Lisa?', 
+    'Quem pintou o quadro Mona Lisa?',
     'Quem criou os personagens Mickey e Minnie Mouse?',
     'Quem foi o vencedor do Big Brother Brasil 20?',
 ]
 const alternativas = [
-    ['O pintor francês Oscar-Claude Monet.', 
+    ['O pintor francês Oscar-Claude Monet.',
     'O pintor pós-impressionista neerlandês Vincent Van Gogh',
-    'O pintor, escultor, arquiteto e poeta do Renascimento Italiano Michelangelo', 
+    'O pintor, escultor, arquiteto e poeta do Renascimento Italiano Michelangelo',
     'O pintor italiano Leonardo Da Vinci.'],
 
     ['Daniel Ek empreendedor sueco',
@@ -26,33 +26,82 @@ const respostas = [
     'A médica Thelma Assis.',
 ]
 
-let pontuacao = 0 
 let divPrincipal = document.querySelector('#tela-principal')
 let numeroPergunta = 1 // apenas para adicionar nas perguntas uma ordem númerica
 let indiceAleatorio = null
+let pontuacao = null
+let nome = null
+
+/*  proxima adição
+function criaTelaInicial(){
+    let divTexto = document.createElement('div')
+}
+
+
+ <div class=" text-center mt-4">
+            <h4>Antes de começar eu preciso que me diga seu apelido</h4>
+          </div>
+
+          <div class="mt-3  d-flex justify-content-center">
+            <div class="my-auto me-3">
+              <label for="input-texto" class=" align-item-center" >Apelido:</label>
+            </div>
+
+            <div class="">
+              <input onfocus="controlaEstadosInputBotao('input jogar', 'habilita')" type="text" class="form-control" id="input-texto" >
+            </div>
+          </div>
+
+          <div class="text-center mt-3 ">
+            <div>
+              <input onclick="capturaNome()" type="button" class="btn btn-light " id="botao-jogar" value="Jogar" disabled>
+            </div>
+
+            <p class="mt-3" id="mensagem-aviso"> </p>
+          </div>
+*/
+function capturaNome(){
+    let botaoJogar = document.querySelector('#botao-jogar')
+    let inputTexto = document.querySelector("#input-texto")
+    if (inputTexto.value === ''){
+        botaoJogar.disabled = true
+        let mensagemAviso = document.querySelector("#mensagem-aviso")
+        mensagemAviso.textContent = 'Você precisa digitar um nome antes de começar'
+    } else{
+        botaoJogar.disabled = false
+        nome = inputTexto.value
+        //inicializaGame()
+        inicializaGame()
+    }
+
+}
 
 function inicializaGame(){
     removeConteudoPagina()
+    criaElementosHtmlPerguntas()
     criaBotoes()
-    criaElementosHtmlAlternativas()
     criaParagrafoResultado()
     indiceAleatorio = adicionaPergunta(geraNumeroAleatorio())
 }
 
+function removeConteudoPagina(){
+    divPrincipal.innerText = ''
+}
+
 function criaBotoes(){
     let divBotoes = document.createElement('div')
-    divBotoes.className = 'offset-2 col-8 mt-3 d-flex justify-content-center'
+    divBotoes.className = 'offset-2 col-8 mt-3 mb-3 d-flex justify-content-center '
 
     let inputHome = document.createElement('input')
     inputHome.id = 'botao-home'
-    inputHome.className = 'btn me-4'
+    inputHome.className = 'btn me-4 btn-green'
     inputHome.type = 'button'
     inputHome.value = 'Voltar para home'
     inputHome.addEventListener('click', () => window.location.href = 'index.html')
 
     let inputProximaPergunta = document.createElement('input')
     inputProximaPergunta.id = 'botao-proxima-pergunta'
-    inputProximaPergunta.className = 'btn me-4'
+    inputProximaPergunta.className = 'btn me-4 btn-orange'
     inputProximaPergunta.type = 'button'
     inputProximaPergunta.value = 'Proxima pergunta'
     inputProximaPergunta.disabled = true
@@ -60,10 +109,10 @@ function criaBotoes(){
 
     let inputVerificaResposta = document.createElement('input')
     inputVerificaResposta.id = 'botao-verifica-resposta'
-    inputVerificaResposta.className = 'btn me-4'
+    inputVerificaResposta.className = 'btn me-4 btn-blue'
     inputVerificaResposta.type = 'button'
     inputVerificaResposta.value = 'Verificar resposta'
-    inputVerificaResposta.disabled = true   
+    inputVerificaResposta.disabled = true
     inputVerificaResposta.addEventListener('click', verificaResposta)
 
     divBotoes.appendChild(inputHome)
@@ -71,10 +120,10 @@ function criaBotoes(){
     divBotoes.appendChild(inputVerificaResposta)
 
     divPrincipal.appendChild(divBotoes)
-  
+
 }
 
-function criaElementosHtmlAlternativas(){ 
+function criaElementosHtmlPerguntas(){
     let divPalco = document.createElement('div') // Aqui é onde coloco as perguntas junto com as alernativas
     divPalco.className = 'offset-2 col-8 mt-5 '
     divPalco.id = 'palco-principal'
@@ -92,44 +141,32 @@ function criaElementosHtmlAlternativas(){
         divAlternativa.className = 'form-check pb-2'
 
         let inputAlternativa = document.createElement('input')
-        inputAlternativa.className = 'form-check-input input-radio-cor input-borda'
+        inputAlternativa.className = 'form-check-input input-radio-cor input-'
         inputAlternativa.id = i
         inputAlternativa.type = 'radio'
         inputAlternativa.name = 'flexRadioDefault'
         inputAlternativa.value = i
-        inputAlternativa.addEventListener("click", () => {
-            let botaoVerificaResposta = document.querySelector('#botao-verifica-resposta') 
-            botaoVerificaResposta.disabled = false
-        })
+        inputAlternativa.addEventListener("click", () =>  controlaEstadosInputBotao('input verifica','habilita'))
 
         let labelAlternativa = document.createElement('label')
         labelAlternativa.className = 'form-check-label'
-        labelAlternativa.id = `label${i}` 
+        labelAlternativa.id = `label${i}`
 
         divAlternativa.appendChild(inputAlternativa)
         divAlternativa.appendChild(labelAlternativa)
 
         divPalco.appendChild(divAlternativa)
     }
-    
+
 }
 
 function criaParagrafoResultado(){
     let divResultado = document.createElement('div')
+    divResultado.className = 'text-center'
     let p = document.createElement('p')
     p.id = 'mensagem-resultado'
     divResultado.appendChild(p)
     divPrincipal.appendChild(divResultado)
-}
-
-function geraNumeroAleatorio() {
-    let numeroAleatorio = parseInt(Math.random() * 3)
-    if (perguntas.length > 0){
-        while (numeroAleatorio >= perguntas.length){
-            numeroAleatorio = parseInt(Math.random() * 3)
-        }
-    }
-    return numeroAleatorio
 }
 
 function adicionaPergunta(indice){
@@ -143,27 +180,25 @@ function adicionaPergunta(indice){
     return indice
 }
 
-function desabilitaInputs(){
-    let elementosInput = document.querySelectorAll('.form-check-input')
-    elementosInput.forEach(function(valor) {
-        valor.disabled = true
-    });
-    let botaoVerificaResposta = document.querySelector("#botao-verifica-resposta")
-    let botaoProximaPergunta = document.querySelector("#botao-proxima-pergunta")
-    botaoVerificaResposta.disabled = true
-    botaoProximaPergunta.disabled= false
-    return elementosInput
+function geraNumeroAleatorio() {
+    let numeroAleatorio = parseInt(Math.random() * 3)
+    if (perguntas.length > 0){
+        while (numeroAleatorio >= perguntas.length){
+            numeroAleatorio = parseInt(Math.random() * 3)
+        }
+    }
+    return numeroAleatorio
 }
 
 function verificaResposta(){
-    let elementosInput = desabilitaInputs()
+    let elementosInput = desabilitaInputAlternativas()
     let resposta = obtemAtributoSelecionado(elementosInput)
     let resultado = ''
 
-    respostas.forEach(valor => { 
+    respostas.forEach(valor => {
         if (valor === resposta){
             resultado = 'certo'
-            pontuacao += 100   
+            pontuacao += 100
         }
     });
 
@@ -171,14 +206,14 @@ function verificaResposta(){
     controlaExibicaoMensagemFinal()
 }
 
-function controlaExibicaoMensagemFinal(){ // melhorar esse nome
-    if (perguntas.length <= 1){
-        let botaoProximaPergunta = document.querySelector("#botao-proxima-pergunta")
-        botaoProximaPergunta.disabled = true
-        setTimeout( () => {
-            imprimiPontuacao()
-        }, 2400 )
-    }
+function desabilitaInputAlternativas(){
+    let elementosInput = document.querySelectorAll('.form-check-input')
+    elementosInput.forEach(function(valor) {
+        valor.disabled = true
+    });
+    controlaEstadosInputBotao('input verifica', 'desabilita')
+    controlaEstadosInputBotao('input proxima', 'habilita')
+    return elementosInput
 }
 
 function obtemAtributoSelecionado(elementosInput){
@@ -198,7 +233,7 @@ function imprimiResultado(resultado){
         } else {
             p.textContent = 'Parabéns você acertou a questão. Pule para a próxima'
         }
-       
+
     } else {
         if(perguntas.length <= 1){
             p.textContent = 'Lamento você errou a última questão. Infelizmente o jogo chegou ao fim :('
@@ -209,20 +244,22 @@ function imprimiResultado(resultado){
 
 }
 
-function imprimeProximaPergunta(){ 
-    let botaoVerificaResposta = document.querySelector("#botao-verifica-resposta")
-    let botaoProximaPergunta = document.querySelector("#botao-proxima-pergunta")
-    botaoProximaPergunta.disabled = true
-    botaoVerificaResposta.disabled = true
+function controlaExibicaoMensagemFinal(){ // melhorar esse nome
+    if (perguntas.length <= 1){
+        controlaEstadosInputBotao('input proxima', 'desabilita')
+        setTimeout( () => {
+            imprimiPontuacao()
+        }, 2400 )
+    }
+}
+
+function imprimeProximaPergunta(){
+    controlaEstadosInputBotao('input proxima', 'desabilita')
+    controlaEstadosInputBotao('input verifica', 'desabilita')
     if ( perguntas.length > 1 ){
         removeItemArray(indiceAleatorio)
-        removeConteudoPagina()
-        criaBotoes()
-        criaElementosHtmlAlternativas()
-        p = criaParagrafoResultado()
-        indiceAleatorio = geraNumeroAleatorio() 
-        adicionaPergunta(indiceAleatorio)
-    } 
+        inicializaGame()
+    }
 }
 
 function removeItemArray(indice){
@@ -230,49 +267,39 @@ function removeItemArray(indice){
     alternativas.splice(indice, 1)
 }
 
-function removeConteudoPagina(){
-    divPrincipal.innerText = ''
-}
-    
 function imprimiPontuacao(){
     removeConteudoPagina()
-
     let h2 = document.createElement('h2')
     h2.className = 'display-5 text-center'
-    h2.textContent = `Parabens por chegar até o final. Sua pontuação foi de ${pontuacao} pontos`
+    h2.textContent = `Parabéns por chegar até o final. Sua pontuação foi de ${pontuacao} pontos`
     divPrincipal.appendChild(h2)
     registraPontos()
     criaBotoes()
 }
 
-function criaTelaInicial(){
-    let divTexto = document.createElement('div') 
-}
-
-function controlaEstadoInput(){
-    let botaoJogar = document.querySelector('#botao-jogar')
-    botaoJogar.disabled = false
-}
-
-let nome = null
-
-function capturaNome(){
-    let botaoJogar = document.querySelector('#botao-jogar')
-    let inputTexto = document.querySelector("#input-texto")
-    if (inputTexto.value === ''){
-        botaoJogar.disabled = true
-        let mensagemAviso = document.querySelector("#mensagem-aviso")
-        mensagemAviso.textContent = 'Você precisa digitar um nome antes de começar'
-    } else{
-        botaoJogar.disabled = false
-        nome = inputTexto.value
-        //inicializaGame()
-        inicializaGame()
-    }
- 
-
-}
-
 function registraPontos() {
     localStorage.setItem(nome, pontuacao)
 }
+
+function controlaEstadosInputBotao(input, acao){
+    let botaoVerificaResposta = document.querySelector("#botao-verifica-resposta")
+    let botaoProximaPergunta = document.querySelector("#botao-proxima-pergunta")
+    let botaoJogar = document.querySelector('#botao-jogar')
+    if (input === 'input verifica'){
+        if ( acao === 'desabilita'){
+            botaoVerificaResposta.disabled = true
+        } else if ( acao === 'habilita'){
+            botaoVerificaResposta.disabled = false
+        }
+
+    } else if (input === 'input proxima'){
+        if ( acao === 'desabilita'){
+            botaoProximaPergunta.disabled = true
+        } else if ( acao === 'habilita'){
+            botaoProximaPergunta.disabled = false
+        }
+    } else if (input === 'input jogar'){
+        botaoJogar.disabled = false
+    }
+}
+
