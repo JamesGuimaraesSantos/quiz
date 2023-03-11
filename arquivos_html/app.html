@@ -20,23 +20,21 @@
     <section >
       <div class="container mt-5">
         <div class="row pb-5" id="tela-principal">
-          <div class="offset-2 col-8 mt-5 " id="palco-principal">
-            
+          <div class="col-12">
+            <h4>Antes de começarmos eu preciso que me diga seu apelido</h4>
           </div>
-          <p id="cronometro" class="text-center"></p>
-          <div class="offset-2 col-8 mt-3 d-flex justify-content-center">
-              
-              <input type="button" id="botao-home" class="btn me-4 " 
-                      onclick="window.location.href = 'index.html'" value="Voltar para tela inicial">
 
-              <input type="button" id="botao-proxima-pergunta" class="btn me-4 " disabled
-                      onclick="imprimeProximaPergunta()" value="Proxima pergunta">
-    
-              <input type="button" id="botao-verifica-resposta" class="btn " disabled
-              onclick="verificaResposta()" value="Verificar a resposta">
-    
+          <div class="col-12 row">
+            <label for="input-texto" class="offset-3 col-2 col-form-label">Apelido</label>
+            <div class="col-4">
+              <input onfocus="controlaEstadoInput()" type="text" class="form-control" id="input-texto" >
+            </div>
           </div>
-    
+
+          <div>
+            <input onclick="capturaNome()" type="button" class="btn btn-light" id="botao-jogar" value="Jogar" disabled>
+            <p id="mensagem-aviso"></p>
+          </div>
         </div>
        
       </div>
@@ -47,6 +45,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script src="../arquivos_js/logica.js" ></script>
-    
+  
+
+
+
   </body>
 </html>

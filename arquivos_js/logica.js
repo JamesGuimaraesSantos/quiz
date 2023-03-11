@@ -1,3 +1,4 @@
+ 
 const perguntas = [
     'Quem pintou o quadro Mona Lisa?', 
     'Quem criou os personagens Mickey e Minnie Mouse?',
@@ -25,65 +26,100 @@ const respostas = [
     'A médica Thelma Assis.',
 ]
 
-let pontuacao = 0
+let pontuacao = 0 
+let divPrincipal = document.querySelector('#tela-principal')
+let numeroPergunta = 1 // apenas para adicionar nas perguntas uma ordem númerica
+let indiceAleatorio = null
 
-let botaoVerificaResposta = document.querySelector('#botao-verifica-resposta')
-let botaoProximaPergunta = document.querySelector('#botao-proxima-pergunta')
-const palcoPrincipal = document.querySelector('#palco-principal') // as perguntas são adicionadas aqui.
-let p = criaElementosHtml() /* retorna o paragrafo que vou escrever dinâmicamente mensagens de sucesso 
-ou falha */ 
-let numeroPergunta = 1 // Apenas para adicionar um número no inicio da pergunta
- /*A função criaElementosHtml cria a seguinte estrutura html:
-        <div>
-            <h4>  texto-pergutna </h4>
-        </div>
+function inicializaGame(){
+    removeConteudoPagina()
+    criaBotoes()
+    criaElementosHtmlAlternativas()
+    criaParagrafoResultado()
+    indiceAleatorio = adicionaPergunta(geraNumeroAleatorio())
+}
 
-        <div>
-            <input>  seletor </input>
-            <label>  texto-alternativa </label>
-        </div>
+function criaBotoes(){
+    let divBotoes = document.createElement('div')
+    divBotoes.className = 'offset-2 col-8 mt-3 d-flex justify-content-center'
 
-        <div>
-            <p>  texto-resultado </p>
-        </div>
-essa estrutura é adicionada na div com id: palcoPrincipal   
-*/
-function criaElementosHtml(){ 
+    let inputHome = document.createElement('input')
+    inputHome.id = 'botao-home'
+    inputHome.className = 'btn me-4'
+    inputHome.type = 'button'
+    inputHome.value = 'Voltar para home'
+    inputHome.addEventListener('click', () => window.location.href = 'index.html')
+
+    let inputProximaPergunta = document.createElement('input')
+    inputProximaPergunta.id = 'botao-proxima-pergunta'
+    inputProximaPergunta.className = 'btn me-4'
+    inputProximaPergunta.type = 'button'
+    inputProximaPergunta.value = 'Proxima pergunta'
+    inputProximaPergunta.disabled = true
+    inputProximaPergunta.addEventListener('click', imprimeProximaPergunta)
+
+    let inputVerificaResposta = document.createElement('input')
+    inputVerificaResposta.id = 'botao-verifica-resposta'
+    inputVerificaResposta.className = 'btn me-4'
+    inputVerificaResposta.type = 'button'
+    inputVerificaResposta.value = 'Verificar resposta'
+    inputVerificaResposta.disabled = true   
+    inputVerificaResposta.addEventListener('click', verificaResposta)
+
+    divBotoes.appendChild(inputHome)
+    divBotoes.appendChild(inputProximaPergunta)
+    divBotoes.appendChild(inputVerificaResposta)
+
+    divPrincipal.appendChild(divBotoes)
+  
+}
+
+function criaElementosHtmlAlternativas(){ 
+    let divPalco = document.createElement('div') // Aqui é onde coloco as perguntas junto com as alernativas
+    divPalco.className = 'offset-2 col-8 mt-5 '
+    divPalco.id = 'palco-principal'
+    divPrincipal.appendChild(divPalco)
+
     let divPergunta = document.createElement('div')
     let h4 = document.createElement('h4')
     h4.className = 'display-5'
 
     divPergunta.appendChild(h4)
-    palcoPrincipal.appendChild(divPergunta)
+    divPalco.appendChild(divPergunta)
 
     for ( let i = 0; i < 4; i++){
         let divAlternativa = document.createElement('div')
         divAlternativa.className = 'form-check pb-2'
 
-        let input = document.createElement('input')
-        input.className = 'form-check-input input-radio-cor input-borda'
-        input.id = i
-        input.type = 'radio'
-        input.name = 'flexRadioDefault'
-        input.value = i
-        input.addEventListener("click", () => botaoVerificaResposta.disabled = false)
+        let inputAlternativa = document.createElement('input')
+        inputAlternativa.className = 'form-check-input input-radio-cor input-borda'
+        inputAlternativa.id = i
+        inputAlternativa.type = 'radio'
+        inputAlternativa.name = 'flexRadioDefault'
+        inputAlternativa.value = i
+        inputAlternativa.addEventListener("click", () => {
+            let botaoVerificaResposta = document.querySelector('#botao-verifica-resposta') 
+            botaoVerificaResposta.disabled = false
+        })
 
-        let label = document.createElement('label')
-        label.className = 'form-check-label'
-        label.id = `label${i}` 
+        let labelAlternativa = document.createElement('label')
+        labelAlternativa.className = 'form-check-label'
+        labelAlternativa.id = `label${i}` 
 
-        divAlternativa.appendChild(input)
-        divAlternativa.appendChild(label)
+        divAlternativa.appendChild(inputAlternativa)
+        divAlternativa.appendChild(labelAlternativa)
 
-        palcoPrincipal.appendChild(divAlternativa)
+        divPalco.appendChild(divAlternativa)
     }
+    
+}
+
+function criaParagrafoResultado(){
     let divResultado = document.createElement('div')
     let p = document.createElement('p')
     p.id = 'mensagem-resultado'
     divResultado.appendChild(p)
-
-    palcoPrincipal.appendChild(divResultado)
-    return p // esse paragrafo é utilizado para escrever as mensagens de sucesso ou fracasso
+    divPrincipal.appendChild(divResultado)
 }
 
 function geraNumeroAleatorio() {
@@ -95,8 +131,6 @@ function geraNumeroAleatorio() {
     }
     return numeroAleatorio
 }
-
-let indiceAleatorio = adicionaPergunta(geraNumeroAleatorio())
 
 function adicionaPergunta(indice){
     let h4 = document.querySelector('h4')
@@ -114,7 +148,8 @@ function desabilitaInputs(){
     elementosInput.forEach(function(valor) {
         valor.disabled = true
     });
-
+    let botaoVerificaResposta = document.querySelector("#botao-verifica-resposta")
+    let botaoProximaPergunta = document.querySelector("#botao-proxima-pergunta")
     botaoVerificaResposta.disabled = true
     botaoProximaPergunta.disabled= false
     return elementosInput
@@ -138,6 +173,7 @@ function verificaResposta(){
 
 function controlaExibicaoMensagemFinal(){ // melhorar esse nome
     if (perguntas.length <= 1){
+        let botaoProximaPergunta = document.querySelector("#botao-proxima-pergunta")
         botaoProximaPergunta.disabled = true
         setTimeout( () => {
             imprimiPontuacao()
@@ -155,6 +191,7 @@ function obtemAtributoSelecionado(elementosInput){
 }
 
 function imprimiResultado(resultado){
+    let p = document.querySelector('#mensagem-resultado')
     if (resultado === 'certo' ){
         if(perguntas.length <= 1){
             p.textContent = 'Parabéns você acertou a última questão. Infelizmente o jogo chegou ao fim :('
@@ -170,16 +207,19 @@ function imprimiResultado(resultado){
         }
     }
 
-    palcoPrincipal.appendChild(p)
 }
 
 function imprimeProximaPergunta(){ 
+    let botaoVerificaResposta = document.querySelector("#botao-verifica-resposta")
+    let botaoProximaPergunta = document.querySelector("#botao-proxima-pergunta")
     botaoProximaPergunta.disabled = true
-
+    botaoVerificaResposta.disabled = true
     if ( perguntas.length > 1 ){
         removeItemArray(indiceAleatorio)
         removeConteudoPagina()
-        criaElementosHtml()
+        criaBotoes()
+        criaElementosHtmlAlternativas()
+        p = criaParagrafoResultado()
         indiceAleatorio = geraNumeroAleatorio() 
         adicionaPergunta(indiceAleatorio)
     } 
@@ -191,7 +231,7 @@ function removeItemArray(indice){
 }
 
 function removeConteudoPagina(){
-    palcoPrincipal.innerText = ''
+    divPrincipal.innerText = ''
 }
     
 function imprimiPontuacao(){
@@ -200,7 +240,39 @@ function imprimiPontuacao(){
     let h2 = document.createElement('h2')
     h2.className = 'display-5 text-center'
     h2.textContent = `Parabens por chegar até o final. Sua pontuação foi de ${pontuacao} pontos`
-    palcoPrincipal.appendChild(h2)
+    divPrincipal.appendChild(h2)
+    registraPontos()
+    criaBotoes()
+}
 
-    botaoVerificaResposta.disabled = true
+function criaTelaInicial(){
+    let divTexto = document.createElement('div') 
+}
+
+function controlaEstadoInput(){
+    let botaoJogar = document.querySelector('#botao-jogar')
+    botaoJogar.disabled = false
+}
+
+let nome = null
+
+function capturaNome(){
+    let botaoJogar = document.querySelector('#botao-jogar')
+    let inputTexto = document.querySelector("#input-texto")
+    if (inputTexto.value === ''){
+        botaoJogar.disabled = true
+        let mensagemAviso = document.querySelector("#mensagem-aviso")
+        mensagemAviso.textContent = 'Você precisa digitar um nome antes de começar'
+    } else{
+        botaoJogar.disabled = false
+        nome = inputTexto.value
+        //inicializaGame()
+        inicializaGame()
+    }
+ 
+
+}
+
+function registraPontos() {
+    localStorage.setItem(nome, pontuacao)
 }
