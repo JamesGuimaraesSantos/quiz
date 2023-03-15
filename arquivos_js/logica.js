@@ -257,7 +257,24 @@ function imprimiPontuacao(){
 }
 
 function registraPontos() {
-    localStorage.setItem(nome, pontuacao)
+    let jogadores = {
+        nome,
+        pontuacao,
+    }
+
+    let id = localStorage.getItem('id')
+    if (id === null){
+        localStorage.setItem('id', 0)
+    }
+
+    let proximoId = pegaProximoId()
+    localStorage.setItem('id', proximoId)
+    localStorage.setItem(proximoId, JSON.stringify(jogadores))
+}
+
+function pegaProximoId(){
+    let proximoId =  localStorage.getItem('id')
+    return parseInt(proximoId) + 1
 }
 
 function controlaEstadosInputBotao(input, acao) {
@@ -280,4 +297,32 @@ function controlaEstadosInputBotao(input, acao) {
     } else if (input === 'input jogar'){
         botaoJogar.disabled = false
     }
+}
+
+function recuperarTodosRegistros(){
+    let jogadores = []
+    let id = localStorage.getItem('id')
+
+    for(let i = 1; i <= id; i++ ){
+        let jogador = JSON.parse(localStorage.getItem(i))
+        
+        if(jogador === null){
+            continue
+        }
+
+        jogadores.push(jogador)
+        
+    } 
+    return jogadores
+}
+
+function imprimiPontuacaoRanking(){
+    let jogadores = recuperarTodosRegistros()
+    let tBody = document.querySelector("#jogadoresPontuacao")
+    for (let jogador of jogadores){
+        let tr = tBody.insertRow()
+        tr.insertCell(0).innerHTML = `${jogador.nome}`
+        tr.insertCell(1).innerHTML = `${jogador.pontuacao}`
+    }
+
 }
