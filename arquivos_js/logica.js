@@ -8,7 +8,6 @@ const alternativas = [
     ['O pintor francês Oscar-Claude Monet.',
     'O pintor pós-impressionista neerlandês Vincent Van Gogh',
     'O pintor, escultor, arquiteto e poeta do Renascimento Italiano Michelangelo',
-    'O pintor, escultor, arquiteto e poeta do Renascimento Italiano Michelangelo',
     'O pintor italiano Leonardo Da Vinci.'],
 
     ['Daniel Ek empreendedor sueco',
@@ -55,7 +54,6 @@ function capturaNome(){
 
 function inicializaGame(){
     removeConteudoPagina()
-    criaElementosHtmlPerguntas()
     criaElementosHtmlPerguntas()
     criaBotoes()
     criaParagrafoResultado()
@@ -139,8 +137,6 @@ function criaElementosHtmlPerguntas(){
 
         divPalco.appendChild(divAlternativa)
     }
-
-
 }
 
 function criaParagrafoResultado(){
@@ -171,6 +167,7 @@ function geraNumeroAleatorio() {
         }
     }
     return numeroAleatorio
+}
 
 function verificaResposta(){
     let elementosInput = desabilitaInputAlternativas()
@@ -263,7 +260,7 @@ function registraPontos() {
     localStorage.setItem(nome, pontuacao)
 }
 
-function controlaEstadosInputBotao(input, acao){
+function controlaEstadosInputBotao(input, acao) {
     let botaoVerificaResposta = document.querySelector("#botao-verifica-resposta")
     let botaoProximaPergunta = document.querySelector("#botao-proxima-pergunta")
     let botaoJogar = document.querySelector('#botao-jogar')
@@ -283,5 +280,4 @@ function controlaEstadosInputBotao(input, acao){
     } else if (input === 'input jogar'){
         botaoJogar.disabled = false
     }
- 
 }
