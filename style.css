@@ -1,77 +1,92 @@
 :root{
-    --bgGreen: rgb(158, 255, 1);
-    --bgOrage: rgb(247, 181, 0);
-    --bgBlue: rgb(1, 255, 255);
+    --fontGreen: rgba(111, 184, 2);
+    --btnYellow: rgba(235, 167, 0, 0.92);
+    --btnOrange: rgba(235, 113, 14, 0.92);
+    --btnRed: rgba(235, 49, 21,0.92);
+}
+
+@font-face {
+    font-family: "positive sistem";
+    src: url(Positive-System.woff);
+
+}
+@font-face{
+    font-family: "ethnocentric";
+    src: url(ethnocentric_rg.woff);
 }
 *{
     margin: 0;
     padding: 0px;
     margin: 0px;
 }
+
 body{
+    font-family: 'Source Serif Pro', serif;
+    color: white;
+    background-color: black;
+}
+/*--------------- Tipografia  ---------------*/
+h1{ /*Título principal*/
+    color: var(--fontGreen);
+    font-family: "positive sistem";
+}
+h4{ /*Perguntas*/
     color: white
 }
+label{
+    font-size: 1.5rem;
+}
+p{
+    font-size: 1.25rem;
+}
+input.form-check-input{
+    font-size: 1.5rem;
+}
+
 .borda{
     border: 1px solid red;
 }
 #tela-principal{
-    background-color: rgb(0, 73, 33);
-    border-top: 8px solid rgb(58, 26, 2);
-    border-left: 8px solid rgb(58, 26, 2);
-    border-right: 8px solid rgb(110, 50, 3);
-    border-bottom: 8px solid rgb(110, 50, 3);
+    padding: 1rem;
+    background: url(galeria/background_question.png) no-repeat;
+    background-size: 80%;
 }
-.form-check{
-    font-size: 1.20rem;
-}
-.input-borda{
-    border: 2px solid white;
-}
-.input-radio-cor{
-    background-color: var(--bgOrage)
-}
+/*--------------- Inputs  ---------------*/
 input.btn{
-    color: black;
-    background-color: rgb(253, 152, 0);
+    color: white;
+    font-weight: bold;
 }
 input.btn:hover{
     border: 2px solid white;
     color: white;
-}
-#botao-proxima-pergunta{
-    background-color: var(--bgGreen)
-}
-#botao-proxima-pergunta:hover{
     background-color: transparent;
 }
 
-#botao-home{
-    background-color: rgb(247, 181, 0);
+.btn-yellow{
+    background-color: var(--btnYellow);
 }
-#botao-home:hover{
-    background-color: transparent;
+.btn-orange{
+    background-color: var(--btnOrange);
 }
-
-#botao-verifica-resposta{
-    background-color: rgb(1, 255, 255);
-}
-#botao-verifica-resposta:hover{
-    background-color: transparent;
+.btn-red{
+    background-color: var(--btnRed);
 }
 
-#botao-ready{
-    background-color: rgb(247, 181, 0);
+/*--------------- Links  ---------------*/
+a{
+    color: white;
+    text-decoration: none;
 }
-#botao-ready:hover{
-    background-color: transparent;
+a:hover{
+    color: var(--fontGreen);
 }
-#cronometro{
-    font-size: 2rem;
-    color: var(--bgGreen)
+
+/*--------------- Icones  ---------------*/
+#redesSociais i{
+    color: var(--fontGreen);
+    font-size: 1.5rem;
+    padding-left: 0.5rem;
 }
-.green{
-    color: yellow;
-}
-.red{
-    color: red;
+#redesSociais i:hover{
+    color: white;
 }

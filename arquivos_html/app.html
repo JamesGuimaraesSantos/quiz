@@ -11,32 +11,39 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  
+
     <title>Quiz</title>
 </head>
 
-<body>  
- 
+<body>
+
     <section >
-      <div class="container mt-5">
-        <div class="row pb-5" id="tela-principal">
-          <div class="col-12">
-            <h4>Antes de começarmos eu preciso que me diga seu apelido</h4>
+      
+      <div class="container mt-5 ">
+        <div class=" " id="tela-principal">
+          <div class=" text-center mt-4">
+            <h4>Antes de começar eu preciso que me diga seu apelido</h4>
           </div>
 
-          <div class="col-12 row">
-            <label for="input-texto" class="offset-3 col-2 col-form-label">Apelido</label>
-            <div class="col-4">
+          <div class="mt-3  d-flex justify-content-center">
+            <div class="my-auto me-3">
+              <label for="input-texto" class=" align-item-center" >Apelido:</label>
+            </div>
+
+            <div class="">
               <input onfocus="controlaEstadosInputBotao('input jogar', 'habilita')" type="text" class="form-control" id="input-texto" >
             </div>
           </div>
 
-          <div>
-            <input onclick="capturaNome()" type="button" class="btn btn-light" id="botao-jogar" value="Jogar" disabled>
-            <p id="mensagem-aviso"></p>
+          <div class="text-center mt-3 ">
+            <div>
+              <input onclick="capturaNome()" type="button" class="btn btn-success px-5 " id="botao-jogar" value="Jogar" disabled>
+            </div>
+
+            <p class="mt-3" id="mensagem-aviso"> </p>
           </div>
         </div>
-       
+
       </div>
     </section>
 
@@ -45,7 +52,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script src="../arquivos_js/logica.js" ></script>
-  
+
 
 
 

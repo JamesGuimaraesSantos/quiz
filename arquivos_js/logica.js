@@ -1,13 +1,13 @@
- 
+
 const perguntas = [
-    'Quem pintou o quadro Mona Lisa?', 
+    'Quem pintou o quadro Mona Lisa?',
     'Quem criou os personagens Mickey e Minnie Mouse?',
     'Quem foi o vencedor do Big Brother Brasil 20?',
 ]
 const alternativas = [
-    ['O pintor francês Oscar-Claude Monet.', 
+    ['O pintor francês Oscar-Claude Monet.',
     'O pintor pós-impressionista neerlandês Vincent Van Gogh',
-    'O pintor, escultor, arquiteto e poeta do Renascimento Italiano Michelangelo', 
+    'O pintor, escultor, arquiteto e poeta do Renascimento Italiano Michelangelo',
     'O pintor italiano Leonardo Da Vinci.'],
 
     ['Daniel Ek empreendedor sueco',
@@ -29,12 +29,12 @@ const respostas = [
 let divPrincipal = document.querySelector('#tela-principal')
 let numeroPergunta = 1 // apenas para adicionar nas perguntas uma ordem númerica
 let indiceAleatorio = null
-let pontuacao = null 
+let pontuacao = null
 let nome = null
 
-/*  proxima adição 
+/*  proxima adição
 function criaTelaInicial(){
-    let divTexto = document.createElement('div') 
+    let divTexto = document.createElement('div')
 }
 */
 function capturaNome(){
@@ -43,7 +43,7 @@ function capturaNome(){
     if (inputTexto.value === ''){
         botaoJogar.disabled = true
         let mensagemAviso = document.querySelector("#mensagem-aviso")
-        mensagemAviso.textContent = 'Você precisa digitar um nome antes de começar'
+        mensagemAviso.textContent = 'Você precisa digitar um nome antes de começar a jogar'
     } else{
         botaoJogar.disabled = false
         nome = inputTexto.value
@@ -55,8 +55,8 @@ function capturaNome(){
 
 function inicializaGame(){
     removeConteudoPagina()
-    criaBotoes()
     criaElementosHtmlPerguntas()
+    criaBotoes()
     criaParagrafoResultado()
     indiceAleatorio = adicionaPergunta(geraNumeroAleatorio())
 }
@@ -67,29 +67,29 @@ function removeConteudoPagina(){
 
 function criaBotoes(){
     let divBotoes = document.createElement('div')
-    divBotoes.className = 'offset-2 col-8 mt-3 d-flex justify-content-center'
+    divBotoes.className = 'offset-2 col-8 mt-3 mb-3 d-flex justify-content-center '
 
     let inputHome = document.createElement('input')
     inputHome.id = 'botao-home'
-    inputHome.className = 'btn me-4'
+    inputHome.className = 'btn me-4 btn-red'
     inputHome.type = 'button'
-    inputHome.value = 'Voltar para home'
+    inputHome.value = 'Voltar para home 🏠'
     inputHome.addEventListener('click', () => window.location.href = 'index.html')
 
     let inputProximaPergunta = document.createElement('input')
     inputProximaPergunta.id = 'botao-proxima-pergunta'
-    inputProximaPergunta.className = 'btn me-4'
+    inputProximaPergunta.className = 'btn me-4 btn-orange'
     inputProximaPergunta.type = 'button'
-    inputProximaPergunta.value = 'Proxima pergunta'
+    inputProximaPergunta.value = 'Proxima pergunta ⏭️'
     inputProximaPergunta.disabled = true
     inputProximaPergunta.addEventListener('click', imprimeProximaPergunta)
 
     let inputVerificaResposta = document.createElement('input')
     inputVerificaResposta.id = 'botao-verifica-resposta'
-    inputVerificaResposta.className = 'btn me-4'
+    inputVerificaResposta.className = 'btn me-4 btn-yellow'
     inputVerificaResposta.type = 'button'
-    inputVerificaResposta.value = 'Verificar resposta'
-    inputVerificaResposta.disabled = true   
+    inputVerificaResposta.value = 'Verificar resposta ✔️'
+    inputVerificaResposta.disabled = true
     inputVerificaResposta.addEventListener('click', verificaResposta)
 
     divBotoes.appendChild(inputHome)
@@ -97,10 +97,10 @@ function criaBotoes(){
     divBotoes.appendChild(inputVerificaResposta)
 
     divPrincipal.appendChild(divBotoes)
-  
+
 }
 
-function criaElementosHtmlPerguntas(){ 
+function criaElementosHtmlPerguntas(){
     let divPalco = document.createElement('div') // Aqui é onde coloco as perguntas junto com as alernativas
     divPalco.className = 'offset-2 col-8 mt-5 '
     divPalco.id = 'palco-principal'
@@ -118,7 +118,7 @@ function criaElementosHtmlPerguntas(){
         divAlternativa.className = 'form-check pb-2'
 
         let inputAlternativa = document.createElement('input')
-        inputAlternativa.className = 'form-check-input input-radio-cor input-borda'
+        inputAlternativa.className = 'form-check-input input-radio-cor input-'
         inputAlternativa.id = i
         inputAlternativa.type = 'radio'
         inputAlternativa.name = 'flexRadioDefault'
@@ -127,18 +127,19 @@ function criaElementosHtmlPerguntas(){
 
         let labelAlternativa = document.createElement('label')
         labelAlternativa.className = 'form-check-label'
-        labelAlternativa.id = `label${i}` 
+        labelAlternativa.id = `label${i}`
 
         divAlternativa.appendChild(inputAlternativa)
         divAlternativa.appendChild(labelAlternativa)
 
         divPalco.appendChild(divAlternativa)
     }
-    
+
 }
 
 function criaParagrafoResultado(){
     let divResultado = document.createElement('div')
+    divResultado.className = 'text-center'
     let p = document.createElement('p')
     p.id = 'mensagem-resultado'
     divResultado.appendChild(p)
@@ -171,10 +172,10 @@ function verificaResposta(){
     let resposta = obtemAtributoSelecionado(elementosInput)
     let resultado = ''
 
-    respostas.forEach(valor => { 
+    respostas.forEach(valor => {
         if (valor === resposta){
             resultado = 'certo'
-            pontuacao += 100   
+            pontuacao += 100
         }
     });
 
@@ -209,7 +210,7 @@ function imprimiResultado(resultado){
         } else {
             p.textContent = 'Parabéns você acertou a questão. Pule para a próxima'
         }
-       
+
     } else {
         if(perguntas.length <= 1){
             p.textContent = 'Lamento você errou a última questão. Infelizmente o jogo chegou ao fim :('
@@ -229,25 +230,25 @@ function controlaExibicaoMensagemFinal(){ // melhorar esse nome
     }
 }
 
-function imprimeProximaPergunta(){ 
+function imprimeProximaPergunta(){
     controlaEstadosInputBotao('input proxima', 'desabilita')
     controlaEstadosInputBotao('input verifica', 'desabilita')
     if ( perguntas.length > 1 ){
         removeItemArray(indiceAleatorio)
         inicializaGame()
-    } 
+    }
 }
 
 function removeItemArray(indice){
     perguntas.splice(indice, 1)
     alternativas.splice(indice, 1)
 }
- 
+
 function imprimiPontuacao(){
     removeConteudoPagina()
     let h2 = document.createElement('h2')
     h2.className = 'display-5 text-center'
-    h2.textContent = `Parabens por chegar até o final. Sua pontuação foi de ${pontuacao} pontos`
+    h2.textContent = `Parabéns por chegar até o final. Sua pontuação foi de ${pontuacao} pontos`
     divPrincipal.appendChild(h2)
     registraPontos()
     criaBotoes()
