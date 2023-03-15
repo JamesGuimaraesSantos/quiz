@@ -20,11 +20,13 @@
     src: url(Positive-System.woff);
 }
 
+
 *{
     margin: 0;
     padding: 0px;
     margin: 0px;
 }
+
 
 body{
     font-family: 'Source Serif Pro', serif;
@@ -53,6 +55,7 @@ input.form-check-input{
 .borda{
     border: 1px solid red;
 }
+
 
 #tela-principal{
     padding: 1rem;

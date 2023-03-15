@@ -8,6 +8,7 @@ const alternativas = [
     ['O pintor francês Oscar-Claude Monet.',
     'O pintor pós-impressionista neerlandês Vincent Van Gogh',
     'O pintor, escultor, arquiteto e poeta do Renascimento Italiano Michelangelo',
+    'O pintor, escultor, arquiteto e poeta do Renascimento Italiano Michelangelo',
     'O pintor italiano Leonardo Da Vinci.'],
 
     ['Daniel Ek empreendedor sueco',
@@ -55,6 +56,7 @@ function capturaNome(){
 function inicializaGame(){
     removeConteudoPagina()
     criaElementosHtmlPerguntas()
+    criaElementosHtmlPerguntas()
     criaBotoes()
     criaParagrafoResultado()
     indiceAleatorio = adicionaPergunta(geraNumeroAleatorio())
@@ -68,6 +70,7 @@ function criaBotoes(){
     let divBotoes = document.createElement('div')
     divBotoes.className = 'offset-2 col-8 mt-3 mb-3 d-flex justify-content-center '
 
+
     let inputHome = document.createElement('input')
     inputHome.id = 'botao-home'
     inputHome.className = 'btn me-4 btn-red'
@@ -77,6 +80,7 @@ function criaBotoes(){
 
     let inputProximaPergunta = document.createElement('input')
     inputProximaPergunta.id = 'botao-proxima-pergunta'
+    inputProximaPergunta.className = 'btn me-4 btn-orange'
     inputProximaPergunta.className = 'btn me-4 btn-orange'
     inputProximaPergunta.type = 'button'
     inputProximaPergunta.value = 'Proxima pergunta ⏭️'
@@ -96,6 +100,7 @@ function criaBotoes(){
     divBotoes.appendChild(inputVerificaResposta)
 
     divPrincipal.appendChild(divBotoes)
+
 
 }
 
@@ -127,12 +132,14 @@ function criaElementosHtmlPerguntas(){
         let labelAlternativa = document.createElement('label')
         labelAlternativa.className = 'form-check-label'
         labelAlternativa.id = `label${i}`
+        labelAlternativa.id = `label${i}`
 
         divAlternativa.appendChild(inputAlternativa)
         divAlternativa.appendChild(labelAlternativa)
 
         divPalco.appendChild(divAlternativa)
     }
+
 
 }
 
@@ -164,7 +171,6 @@ function geraNumeroAleatorio() {
         }
     }
     return numeroAleatorio
-}
 
 function verificaResposta(){
     let elementosInput = desabilitaInputAlternativas()
@@ -277,4 +283,5 @@ function controlaEstadosInputBotao(input, acao){
     } else if (input === 'input jogar'){
         botaoJogar.disabled = false
     }
+ 
 }
