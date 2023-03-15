@@ -47,7 +47,6 @@ function capturaNome(){
     } else{
         botaoJogar.disabled = false
         nome = inputTexto.value
-        //inicializaGame()
         inicializaGame()
     }
 

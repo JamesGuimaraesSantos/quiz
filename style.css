@@ -14,6 +14,12 @@
     font-family: "ethnocentric";
     src: url(ethnocentric_rg.woff);
 }
+
+@font-face {
+    font-family: "positive sistem";
+    src: url(Positive-System.woff);
+}
+
 *{
     margin: 0;
     padding: 0px;
@@ -30,11 +36,12 @@ h1{ /*Título principal*/
     color: var(--fontGreen);
     font-family: "positive sistem";
 }
+
 h4{ /*Perguntas*/
     color: white
 }
 label{
-    font-size: 1.5rem;
+    font-size: 1.25rem;
 }
 p{
     font-size: 1.25rem;
@@ -46,6 +53,7 @@ input.form-check-input{
 .borda{
     border: 1px solid red;
 }
+
 #tela-principal{
     padding: 1rem;
     background: url(galeria/background_question.png) no-repeat;
@@ -56,6 +64,7 @@ input.btn{
     color: white;
     font-weight: bold;
 }
+
 input.btn:hover{
     border: 2px solid white;
     color: white;
